@@ -24,7 +24,7 @@ const Sidebar = () => {
       {/* Header */}
       <div className="flex items-center justify-between p-3 mt-10">
         <span className="font-bold ">{open ? "Zettabyte" : "ZB"}</span>
-        <button onClick={() => setOpen(!open)} className="text-sm">
+        <button onClick={() => setOpen(!open)} className="text-sm cursor-pointer">
           {open ? <BiChevronLeft size={20} /> : <BiChevronRight size={20}/>}
         </button>
       </div>
