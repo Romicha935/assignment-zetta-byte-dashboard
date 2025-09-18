@@ -1,60 +1,49 @@
-// "use client";
-// import { useState } from "react";
-// import Link from "next/link";
-// import { motion } from "framer-motion";
-
-// export default function Sidebar() {
-//   const [open, setOpen] = useState(true);
-
-//   return (
-//     <motion.aside
-//       animate={{ width: open ? 220 : 60 }}
-//       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-//       className="h-screen bg-gradient-to-b from-indigo-600 to-purple-600 text-white flex flex-col"
-//     >
-//       <div className="flex items-center justify-between p-3">
-//         <span className="font-bold">{open ? "Zettabyte" : "ZB"}</span>
-//         <button onClick={() => setOpen(!open)} className="text-sm">
-//           {open ? "◀" : "▶"}
-//         </button>
-//       </div>
-
-//       <nav className="flex flex-col gap-2 p-2">
-//         <Link href="/" className="hover:bg-white/10 px-3 py-2 rounded">Dashboard</Link>
-//         <Link href="/posts" className="hover:bg-white/10 px-3 py-2 rounded">Posts</Link>
-//         <Link href="/users" className="hover:bg-white/10 px-3 py-2 rounded">Users</Link>
-//       </nav>
-//     </motion.aside>
-//   );
-// }
-
-"use client "
-import { spring } from 'framer-motion'
-import React, { useState } from 'react'
-import { motion } from 'framer-motion';
-import Link from 'next/link';
+"use client";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { FaFileAlt, FaHome, FaUser } from "react-icons/fa";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+//import { Home, FileText, Users } from "lucide-react"; // icon lib
 
 const Sidebar = () => {
-    const [open ,setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
+
+  const menu = [
+    { name: "Dashboard", href: "/", icon: <FaHome size={18} /> },
+    { name: "Posts", href: "/posts", icon: <FaFileAlt size={18} /> },
+    { name: "Users", href: "/users", icon: <FaUser size={18} /> },
+  ];
+
   return (
-    <motion.aside 
-    animate={{width: open ? 220 : 60 }} 
-    transition={{type:spring, stiffness: 220 , damping: 20}}
-    className="h-screen  bg-gradient-to-b from-green-500 to-purple-500"
+    <motion.aside
+      animate={{ width: open ? 220 : 60 }}
+      transition={{ type: "spring", stiffness: 220, damping: 20 }}
+      className="h-screen   flex flex-col shadow-xl"
     >
-        <div className='flex items-center justify-between p-3'>
-             <span className="font-bold">{open ? "Zettabyte" : "ZB"}</span>
-            <button onClick={()=> setOpen(!open)} className='text-sm'>{open ? "◀" : "▶"  }</button>
-        </div>
+      {/* Header */}
+      <div className="flex items-center justify-between p-3 mt-10">
+        <span className="font-bold ">{open ? "Zettabyte" : "ZB"}</span>
+        <button onClick={() => setOpen(!open)} className="text-sm">
+          {open ? <BiChevronLeft size={20} /> : <BiChevronRight size={20}/>}
+        </button>
+      </div>
 
-        <nav className='flex flex-col gap-2 p-2'>
-            <Link href="/" className='hover:bg-white text-center px-3 py-3 rounded' >Dashboard</Link>
-            <Link href="/posts" className='hover:bg-white text-center px-3 py-3 rounded' >Posts</Link>
-            <Link href="/users" className='hover:bg-white text-center px-3 py-3 rounded' >Users</Link>
-        </nav>
-
+      {/* Menu */}
+      <nav className="flex flex-col gap-2 p-2">
+        {menu.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className="flex items-center gap-3 hover:bg-blue-200 px-3 py-2 rounded transition"
+          >
+            {item.icon}
+            {open && <span>{item.name}</span>}
+          </Link>
+        ))}
+      </nav>
     </motion.aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

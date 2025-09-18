@@ -1,42 +1,31 @@
-// // app/page.tsx
-// "use client";
-// import Card from "../../components/card";
-// import { motion } from "framer-motion";
+"use client";
 
-// export default function HomePage() {
-//   return (
-//     <div>
-//       <div className="mb-6">
-//         <motion.h1
-//           initial={{ opacity: 0, y: -10 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.5 }}
-//           className="text-3xl font-bold"
-//         >
-//           Welcome, Romicha 👋
-//         </motion.h1>
-//         <p className="text-slate-600">Mini dashboard demo for Zettabyte — UI & Animations focus.</p>
-//       </div>
+import PostCard from "@/components/card";
+import { useFetch } from "@/hooks/useFetch";
 
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//         <Card title="Visitors">
-//           <motion.div
-//             initial={{ width: "10%" }}
-//             animate={{ width: ["10%", "60%", "30%"] }}
-//             transition={{ repeat: Infinity, duration: 3 }}
-//             className="h-3 bg-indigo-500 rounded"
-//           />
-//           <div className="mt-2 text-sm">Animated sparkline placeholder</div>
-//         </Card>
 
-//         <Card title="Performance">
-//           <div>Placeholder stats</div>
-//         </Card>
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+}
 
-//         <Card title="Tasks">
-//           <div>3 pending</div>
-//         </Card>
-//       </div>
-//     </div>
-//   );
-// }
+export default function PostsPage() {
+  const { data: posts, loading, error } = useFetch<Post[]>(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+
+  if (loading) return <p className="text-center mt-10">Loading posts...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">❌ {error}</p>;
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-6">Posts</h1>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts?.slice(0, 12).map((post, i) => (
+          <PostCard key={post.id} post={post} index={i} />
+        ))}
+      </div>
+    </div>
+  );
+}

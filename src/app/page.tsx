@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Welcome, Romicha!</h1>
+    <div className="p-6 mt-20">
+      <h1 className="text-3xl font-bold mb-4">Welcome, My Dashboard Page!</h1>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
