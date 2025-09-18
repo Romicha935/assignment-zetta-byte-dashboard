@@ -19,7 +19,7 @@ const Sidebar = () => {
     <motion.aside
       animate={{ width: open ? 220 : 60 }}
       transition={{ type: "spring", stiffness: 220, damping: 20 }}
-      className="h-screen   flex flex-col shadow-xl"
+      className="h-screen   flex flex-col shadow-xl fixed"
     >
       {/* Header */}
       <div className="flex items-center justify-between p-3 mt-10">

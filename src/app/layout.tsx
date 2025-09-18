@@ -1,31 +1,24 @@
-"use client"
-import "./globals.css";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+"use client";
+
 import Sidebar from "@/components/sidebar";
+import "./globals.css";
 
-
-
-// export const metadata = {
-//   title: "Zettabyte Dashboard",
-// };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const sidebarWidth = 220; 
+
   return (
     <html lang="en">
       <body className="bg-slate-100">
-       
-      
-        <div className="min-h-screen flex">
-       
-            {/* Sidebar */}
-          <Sidebar/>
-          {/* Main content */}
-          <main className="flex-1 p-6">{children}</main>
-          
-        </div>
-       
+        <Sidebar />
+
         
+        <main
+          className="p-6 overflow-auto"
+          style={{ marginLeft: sidebarWidth }}
+        >
+          {children}
+        </main>
       </body>
     </html>
   );
